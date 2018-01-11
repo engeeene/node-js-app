@@ -3,13 +3,7 @@ const assert = require("assert");
 const app_module = require("./app");
 const app = require("./app").app;
 
-app_module.connectToDB({
-			host: '127.0.0.1',
-			port: 5432,
-			user: 'Engeeene',
-			database: 'test',
-			password: '1234'
-	});
+app_module.connectToDB();
 
 it('should return home page', function(done){
 	request(app)
