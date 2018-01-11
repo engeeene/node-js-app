@@ -43,7 +43,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 	
 app.get("/", function(request, response){
 	response.render('home.hbs',{
-		title: 'test'
+		title: 'node-js-app'
 	});
 });
 
