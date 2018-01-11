@@ -292,6 +292,6 @@ var server = app.listen(3000);
 //process.on('SIGTERM', exit);
 
 module.exports.app = app;
-module.exports.disconnect = exit;
+//module.exports.disconnect = exit;
 module.exports.connectToDB = connectToDB;
 module.exports.generateDB = generate;
