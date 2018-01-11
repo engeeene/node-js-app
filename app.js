@@ -279,20 +279,19 @@ app.post("/find", jsonParser, function(request, response){
 
 var server = app.listen(3000);
 
-async function exit() {
-	server.close(async function() {
-		await client.end()
-			.then(() => console.log('Disconnected from postgresql server'))
-			.catch(err => console.error('error during disconnection', err.stack));
-		console.log('shutting down...');
-		process.exit();
-	});
-}
-process.on('SIGINT', exit);
-process.on('SIGTERM', exit);
+//async function exit() {
+//	server.close(async function() {
+//		await client.end()
+//			.then(() => console.log('Disconnected from postgresql server'))
+//			.catch(err => console.error('error during disconnection', err.stack));
+//		console.log('shutting down...');
+//		process.exit();
+//	});
+//}
+//process.on('SIGINT', exit);
+//process.on('SIGTERM', exit);
 
 module.exports.app = app;
 module.exports.disconnect = exit;
 module.exports.connectToDB = connectToDB;
 module.exports.generateDB = generate;
-module.exports.clientDB = client;
