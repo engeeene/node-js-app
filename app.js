@@ -30,13 +30,7 @@ async function connectToDB(data) {
 }
 
 if (module.parent == undefined) {
-	connectToDB({
-		host: '127.0.0.1',
-		port: 5432,
-		user: 'Engeeene',
-		database: 'components',
-		password: '1234'
-	});
+	connectToDB();
 }
 
 app.use(express.static(path.join(__dirname, 'public')));
