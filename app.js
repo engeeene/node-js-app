@@ -146,18 +146,6 @@ async function generate(amount) {
 		return true;
 }
 
-async function generateStatic() {
-	await client.query(`INSERT INTO motherboard VALUES (nextval('motherboard_id_seq'), 'mb', 'mb', 1, 1, false, false, 'LGA771', 'DDR1', 6, 1000);`);
-	await client.query(`INSERT INTO cpu VALUES (nextval('cpu_id_seq'), 'cpu', 'cpu', 1, 1, 'LGA771', 1, 1, 'bad', 'Intel');`);
-	await client.query(`INSERT INTO cpu_cooler VALUES (nextval('cpu_cooler_id_seq'), 'cpu_cooler', 'cpu_cooler', 1, 1, 'LGA771', 100, false, 'bad');`);
-	await client.query(`INSERT INTO motherboard_cpu_cooler VALUES (nextval('motherboard_cpu_cooler_id_seq'), 'LGA771', currval('cpu_cooler_id_seq'));`);
-	await client.query(`INSERT INTO gpu VALUES (nextval('gpu_id_seq'), 'gpu', 'gpu', 1, 1, 1, 1, 1, false, 'Intel');`);
-	await client.query(`INSERT INTO ram VALUES (nextval('ram_id_seq'), 'ram', 'ram', 1, 1, 'DDR1', 1, 1);`);
-	await client.query(`INSERT INTO hdd VALUES (nextval('hdd_id_seq), 'hdd', 'hdd', 1, 1, 1, 1, 1);`);
-	await client.query(`INSERT INTO power_supply VALUES ('nextval(power_supply_id_seq'), 'ps', 'ps', 1, 100, false, false);`);
-	return true;
-}
-
 app.post("/find", jsonParser, function(request, response){
 	if(!request.body) return response.sendStatus(400);
     console.log(request.body);
@@ -213,5 +201,4 @@ module.exports.app = app;
 module.exports.disconnect = exit;
 module.exports.connectToDB = connectToDB;
 module.exports.generateDB = generate;
-module.exports.generateStatic = generateStatic;
 module.exports.clientDB = client;

@@ -25,7 +25,7 @@ it('should generate rows withoth errors',() => {
 
 it('should return row', function(done){
 	request(app)
-		.post("/")
+		.post("/find")
 		.type('json')
 		.send({
 			cooler_silent: false,
@@ -39,12 +39,12 @@ it('should return row', function(done){
 			hdd_speed:"1",
 			mb_north:false,
 			mb_south:false,
-			price:"7",
+			price:"1",
 			ps_modular:false,
 			ram_amount:"1",
 			ram_frequency:"1"
 		})
-		.expect('Content-Type', 'text/html; charset=utf-8')
+		.expect('Content-Type', 'application/json; charset=utf-8')
 		.end(done);
 });
 
