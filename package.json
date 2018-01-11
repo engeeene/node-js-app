@@ -1,12 +1,16 @@
 {
   "name": "node",
   "version": "1.0.0",
+  "scripts": {
+    "test": "mocha *.test.js"
+  },
   "dependencies": {
     "express": "^4.16.2",
     "hbs": "^4.0.1",
     "pg": "^7.4.1"
   },
   "devDependencies": {
-    "mocha": "^4.1.0"
+    "mocha": "^4.1.0",
+    "supertest": "^3.0.0"
   }
 }

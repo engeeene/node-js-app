@@ -1,16 +1,10 @@
 const path = require('path');
+const random = require('./random');
 const express = require('express');
 const bodyParser = require("body-parser");
 const { Client } = require('pg');
-
+var client;
 const app = express();
-const client = new Client({
-	host: '127.0.0.1',
-	port: 5432,
-	user: 'Engeeene',
-	database: 'components',
-	password: '1234'
-});
 const jsonParser = bodyParser.json();
 app.set("view engine", "hbs");
 
@@ -28,25 +22,22 @@ const hdd_manufacturer = ['Silicon Power', 'Transcend', 'Toshiba', 'Dell', 'WD',
 const ps_manufacturer = ['XFX', 'Aerocool', 'Corsair', 'SeaSonic', 'EVGA', 'LogicPower'];
 const model_array = 'QWERRTYUIOPASDFGHJKLZXCVBNM';
 
-function getRandomInt(min, max) {
-  return Math.round(Math.random() * (max - min)) + min;
-}
-
-function getRandomFromArray(array) {
-  return array[getRandomInt(0, array.length - 1)];
-}
-
-function getSeveralRandomFromArray(array, n) {
-  return array[getRandomInt(0, array.length - 1)];
-}
-
-function getRandomChance(percent) {
-  return Math.round(Math.random() * 100) <= percent;
-}
-
-client.connect()
+async function connectToDB(data) {
+	client = new Client(data);
+	client.connect()
 	.then(() => console.log('Connectied to postgresql server'))
 	.catch(e => console.error('error during connecting', err.stack));
+}
+
+if (module.parent == undefined) {
+	connectToDB({
+		host: '127.0.0.1',
+		port: 5432,
+		user: 'Engeeene',
+		database: 'components',
+		password: '1234'
+	});
+}
 
 app.use(express.static(path.join(__dirname, 'public')));
 	
@@ -62,10 +53,10 @@ async function generate(amount) {
 	
 	async function generateTable(table_name, array, mean_price, mean_r_power, inner_f, amount){
 		for (var i = 0; i < amount; i++) {
-			var name = getRandomFromArray(array)
-			var model = getRandomFromArray(model_array) + getRandomFromArray(model_array) + getRandomFromArray(model_array) + '-' + getRandomInt(20, 99);
-			var price = mean_price * getRandomInt(3,20) / 10;
-			var r_pover = mean_r_power * getRandomInt(5,17) / 10;
+			var name = random.getRandomFromArray(array)
+			var model = random.getRandomFromArray(model_array) + random.getRandomFromArray(model_array) + random.getRandomFromArray(model_array) + '-' + random.getRandomInt(20, 99);
+			var price = mean_price * random.getRandomInt(3,20) / 10;
+			var r_pover = mean_r_power * random.getRandomInt(5,17) / 10;
 			var line = `'${name}', '${model}', ${price}, ${r_pover}, ` + inner_f();
 			await client.query(`INSERT INTO ${table_name} VALUES (nextval('${table_name + '_id_seq'}'), ${line});`)
 			//.then(console.log(res))
@@ -74,39 +65,39 @@ async function generate(amount) {
 	}
 	
 	await generateTable('motherboard', mb_manufacturer, 120, 20, () => {
-		return `${getRandomChance(30)}, ${getRandomChance(70)}, '${getRandomFromArray(sockets)}', '${getRandomFromArray(memory_types)}', ${getRandomInt(2,6)}, ${getRandomInt(20,110)*10}`;
+		return `${random.getRandomChance(30)}, ${random.getRandomChance(70)}, '${random.getRandomFromArray(sockets)}', '${random.getRandomFromArray(memory_types)}', ${random.getRandomInt(2,6)}, ${random.getRandomInt(20,110)*10}`;
 	}, amount);
 	await generateTable('cpu', cpu_manufacturer, 280, 60, () => {
-		return `'${getRandomFromArray(sockets)}', ${getRandomInt(10,40)/10}, ${getRandomInt(1,4)*2}, '${getRandomFromArray(efficiency_type)}', '${getRandomFromArray(chips)}'`;
+		return `'${random.getRandomFromArray(sockets)}', ${random.getRandomInt(10,40)/10}, ${random.getRandomInt(1,4)*2}, '${random.getRandomFromArray(efficiency_type)}', '${random.getRandomFromArray(chips)}'`;
 	}, amount*2);
 	await generateTable('cpu_cooler', cpu_cooler_manufacturer, 15, 10, () => {
-		return `${getRandomInt(20,110)*10}, ${getRandomChance(30)}, '${getRandomFromArray(efficiency_type)}'`;
+		return `${random.getRandomInt(20,110)*10}, ${random.getRandomChance(30)}, '${random.getRandomFromArray(efficiency_type)}'`;
 	}, amount);	
 	await generateTable('gpu', gpu_manufacturer, 400, 120, () => {
-		return `${getRandomInt(800,1500)}, ${getRandomInt(1,8)}, ${getRandomInt(40,60)*100}, ${getRandomChance(30)}, '${getRandomFromArray(chips)}'`;
+		return `${random.getRandomInt(800,1500)}, ${random.getRandomInt(1,8)}, ${random.getRandomInt(40,60)*100}, ${random.getRandomChance(30)}, '${random.getRandomFromArray(chips)}'`;
 	}, amount*5);
 	await generateTable('ram', ram_manufacturer, 80, 20, () => {
-		return `'${getRandomFromArray(memory_types)}', ${Math.pow(2,getRandomInt(1,8))}, ${getRandomInt(8,21)*100}`;
+		return `'${random.getRandomFromArray(memory_types)}', ${Math.pow(2,random.getRandomInt(1,8))}, ${random.getRandomInt(8,21)*100}`;
 	}, amount*2);
 	await generateTable('hdd', hdd_manufacturer, 25, 15, () => {
-		return `${getRandomInt(1,8)*500}, ${getRandomInt(10,32)*10}, 1`;
+		return `${random.getRandomInt(1,8)*500}, ${random.getRandomInt(10,32)*10}, 1`;
 	}, amount);
 	await generateTable('hdd', hdd_manufacturer, 50, 30, () => {
-		return `${getRandomInt(8,16)*500}, ${getRandomInt(10,32)*10}, 2`;
+		return `${random.getRandomInt(8,16)*500}, ${random.getRandomInt(10,32)*10}, 2`;
 	}, amount);
 	await generateTable('hdd', hdd_manufacturer, 75, 45, () => {
-		return `${getRandomInt(16,24)*500}, ${getRandomInt(10,32)*10}, 4`;
+		return `${random.getRandomInt(16,24)*500}, ${random.getRandomInt(10,32)*10}, 4`;
 	}, amount);
 	await generateTable('hdd', hdd_manufacturer, 100, 60, () => {
-		return `${getRandomInt(24,32)*500}, ${getRandomInt(10,32)*10}, 6`;
+		return `${random.getRandomInt(24,32)*500}, ${random.getRandomInt(10,32)*10}, 6`;
 	}, amount);
 	
 	for (var i = 0; i < amount; i++) {
-		var name = getRandomFromArray(ps_manufacturer)
-		var model = getRandomFromArray(model_array) + getRandomFromArray(model_array) + getRandomFromArray(model_array) + '-' + getRandomInt(20, 99);
-		var price = 100 * getRandomInt(5,20) / 10;
-		var pover = getRandomInt(20,60) * 10;
-		var line = `'${name}', '${model}', ${price}, ${pover}, ${getRandomChance(50)}, ${getRandomChance(50)}`;
+		var name = random.getRandomFromArray(ps_manufacturer)
+		var model = random.getRandomFromArray(model_array) + random.getRandomFromArray(model_array) + random.getRandomFromArray(model_array) + '-' + random.getRandomInt(20, 99);
+		var price = 100 * random.getRandomInt(5,20) / 10;
+		var pover = random.getRandomInt(20,60) * 10;
+		var line = `'${name}', '${model}', ${price}, ${pover}, ${random.getRandomChance(50)}, ${random.getRandomChance(50)}`;
 		await client.query(`INSERT INTO power_supply VALUES (nextval('power_supply_id_seq'), ${line});`)
 		//.then(console.log(res))
 		.catch(e => console.error('query error', e.stack));
@@ -115,7 +106,7 @@ async function generate(amount) {
 	await client.query('SELECT cooler FROM (SELECT cpu_cooler.id AS cooler, motherboard_cpu_cooler.id_cpu_cooler AS socket FROM cpu_cooler LEFT JOIN motherboard_cpu_cooler ON cpu_cooler.id = motherboard_cpu_cooler.id_cpu_cooler) AS cpu_cooler_socket WHERE socket IS NULL;')
 		.then(async function (req) {
 			req.rows.forEach(async function (row) {
-				var n = getRandomInt(1,7);
+				var n = random.getRandomInt(1,7);
 				async function insert(array) {
 					array.forEach(async function (item) {
 						await client.query(`INSERT INTO motherboard_cpu_cooler VALUES (nextval('motherboard_cpu_cooler_id_seq'), '${item}', ${row.cooler})`)
@@ -151,6 +142,20 @@ async function generate(amount) {
 			})
 		})
 		.catch(e => console.error('select error', e.stack));
+		
+		return true;
+}
+
+async function generateStatic() {
+	await client.query(`INSERT INTO motherboard VALUES (nextval('motherboard_id_seq'), 'mb', 'mb', 1, 1, false, false, 'LGA771', 'DDR1', 6, 1000);`);
+	await client.query(`INSERT INTO cpu VALUES (nextval('cpu_id_seq'), 'cpu', 'cpu', 1, 1, 'LGA771', 1, 1, 'bad', 'Intel');`);
+	await client.query(`INSERT INTO cpu_cooler VALUES (nextval('cpu_cooler_id_seq'), 'cpu_cooler', 'cpu_cooler', 1, 1, 'LGA771', 100, false, 'bad');`);
+	await client.query(`INSERT INTO motherboard_cpu_cooler VALUES (nextval('motherboard_cpu_cooler_id_seq'), 'LGA771', currval('cpu_cooler_id_seq'));`);
+	await client.query(`INSERT INTO gpu VALUES (nextval('gpu_id_seq'), 'gpu', 'gpu', 1, 1, 1, 1, 1, false, 'Intel');`);
+	await client.query(`INSERT INTO ram VALUES (nextval('ram_id_seq'), 'ram', 'ram', 1, 1, 'DDR1', 1, 1);`);
+	await client.query(`INSERT INTO hdd VALUES (nextval('hdd_id_seq), 'hdd', 'hdd', 1, 1, 1, 1, 1);`);
+	await client.query(`INSERT INTO power_supply VALUES ('nextval(power_supply_id_seq'), 'ps', 'ps', 1, 100, false, false);`);
+	return true;
 }
 
 app.post("/find", jsonParser, function(request, response){
@@ -202,4 +207,11 @@ async function exit() {
 	});
 }
 process.on('SIGINT', exit);
-process.on ('SIGTERM', exit);
+process.on('SIGTERM', exit);
+
+module.exports.app = app;
+module.exports.disconnect = exit;
+module.exports.connectToDB = connectToDB;
+module.exports.generateDB = generate;
+module.exports.generateStatic = generateStatic;
+module.exports.clientDB = client;
