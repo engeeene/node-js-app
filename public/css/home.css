@@ -1,0 +1,34 @@
+html {
+	min-width: 100%;
+	min-height: 100%;
+}
+
+body {
+	min-width: 100%;
+	min-height: 100%;
+}
+
+.text {
+	width: 150px;
+	margin: 5px 20px 5px 0px;
+	text-align: right;
+}
+
+input, select {
+	width: 80px;
+}
+
+.box {
+	border: 1px Solid #999;
+	margin: 10px;
+	width: 260px;
+	height: 100px;
+}
+
+ #head b div {
+	 width: 100px;
+ }
+
+ #root div div {
+	 width: 100px;
+ }

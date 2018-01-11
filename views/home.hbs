@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{title}}</title>
+	<link rel="stylesheet" type="text/css" href="css/index.css" />
+    <meta charset="utf-8" />
+	<script src="js/jquery-3.2.1.js"></script>
+	<script src="js/core.js"></script>
+	<style>
+
+	</style>
+</head>
+<body class="column center">
+	<form action="/find" class="row center wrap">
+		<div class="column center box">
+			CPU
+			<div class="row center">
+				<div class="text">Frequency</div>
+				<input type="text" name="cpu_frequency" placeholder="4" value="3.5"/>
+			</div>
+			<div class="row center">
+				<div class="text">Cores</div>
+				<input type="text" name="cpu_cores" placeholder="4" value="4"/>
+			</div>
+		</div>
+		<div class="column center box">
+			CPU cooler
+			<div class="row center">
+				<div class="text">Silent mode</div>
+				<input type="checkbox" name="cooler_silent"/>
+			</div>
+		</div>
+		<div class="column center box">
+			GPU
+			<div class="row center">
+				<div class="text">Memory amount</div>
+				<input type="text" name="gpu_memory_amount" placeholder="2" value="2"/>
+			</div>
+			<div class="row center">
+				<div class="text">Core frequency</div>
+				<input type="text" name="gpu_core_frequency" placeholder="1100" value="1000"/>
+			</div>
+			<div class="row center">
+				<div class="text">Memory frequency</div>
+				<input type="text" name="gpu_memory_frequency" placeholder="5900" value="5900"/>
+			</div>
+		</div>
+		<div class="column center box">
+			RAM
+			<div class="row center">
+				<div class="text">Memory amount</div>
+				<input type="text" name="ram_amount" placeholder="2^n" value="16"/>
+			</div>
+			<div class="row center">
+				<div class="text">Memory frequency</div>
+				<input type="text" name="ram_frequency" placeholder="1333" value="1333"/>
+			</div>
+		</div>
+		<div class="column center box">
+			HDD
+			<div class="row center">
+				<div class="text">Memory amount</div>
+				<input type="text" name="hdd_memory_amount" placeholder="1000" value="1000"/>
+			</div>
+			<div class="row center">
+				<div class="text">Read/Write speed</div>
+				<input type="text" name="hdd_speed" placeholder="160" value="180"/>
+			</div>
+			<div class="row center">
+				<div class="text">Amount of disks</div>
+				<input type="text" name="hdd_amount" placeholder="2" value="2"/>
+			</div>
+		</div>
+		<div class="column center box">
+			Motherboard
+			<div class="row center">
+				<div class="text">North bridge</div>
+				<input type="checkbox" name="mb_north"/>
+			</div>
+			<div class="row center">
+				<div class="text">South bridge</div>
+				<input type="checkbox" name="mb_south"/>
+			</div>
+		</div>
+		<div class="column center box">
+			Power Supply
+			<div class="row center">
+				<div class="text">Modular</div>
+				<input type="checkbox" name="ps_modular"/>
+			</div>
+		</div>
+		<div class="column center box">
+			<div class="row center">
+				<div class="text">Price</div>
+				<input type="text" name="price" placeholder="800-1200" value="1000"/>
+			</div>
+		</div>
+		<input type="submit" value="Find">
+	</form>
+	<div class="column center">
+		<div id="head" class="column center">
+			<b class="row center">
+				<div>Motherboard</div>
+				<div></div>
+				<div>CPU</div>
+				<div></div>
+				<div>CPU Cooler</div>
+				<div></div>
+				<div>GPU</div>
+				<div></div>
+				<div>RAM</div>
+				<div></div>
+				<div>HDD</div>
+				<div></div>
+				<div>Power Supply</div>
+				<div></div>
+				<div>Price</div>					
+				</div>
+			</b>
+		<div id="root" class="column center">
+			
+		</div>
+	</div>
+</body>
+<html>

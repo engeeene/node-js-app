@@ -1,0 +1,252 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="Engeeene (generated)" id="1515695373679-1">
+        <createTable tableName="cpu">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="cpu_pkey"/>
+            </column>
+            <column name="manufacturer" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="model" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="numeric">
+                <constraints nullable="false"/>
+            </column>
+            <column name="required_power" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="socket" type="SOCKETS">
+                <constraints nullable="false"/>
+            </column>
+            <column name="core_frequency" type="numeric">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cores" type="SMALLINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="min_cooler_efficiency" type="EFFICIENCY_TYPE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="chip" type="CHIPS">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Engeeene (generated)" id="1515695373679-2">
+        <createTable tableName="cpu_cooler">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="cpu_cooler_pkey"/>
+            </column>
+            <column name="manufacturer" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="model" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="numeric">
+                <constraints nullable="false"/>
+            </column>
+            <column name="required_power" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="weigth" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="silent" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="efficiency" type="EFFICIENCY_TYPE">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Engeeene (generated)" id="1515695373679-3">
+        <createTable tableName="gpu">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="gpu_pkey"/>
+            </column>
+            <column name="manufacturer" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="model" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="numeric">
+                <constraints nullable="false"/>
+            </column>
+            <column name="required_power" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="core_frequency" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="memory_amount" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="memory_frequency" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="additional_pin" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="chip" type="CHIPS">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Engeeene (generated)" id="1515695373679-4">
+        <createTable tableName="hdd">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="hdd_pkey"/>
+            </column>
+            <column name="manufacturer" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="model" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="numeric">
+                <constraints nullable="false"/>
+            </column>
+            <column name="required_power" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="memory_amount" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="speed" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="amount" type="SMALLINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Engeeene (generated)" id="1515695373679-5">
+        <createTable tableName="motherboard">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="motherboard_pkey"/>
+            </column>
+            <column name="manufacturer" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="model" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="numeric">
+                <constraints nullable="false"/>
+            </column>
+            <column name="required_power" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="north_bridge" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="south_bridge" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="socket" type="SOCKETS">
+                <constraints nullable="false"/>
+            </column>
+            <column name="memory_type" type="MEMORY_TYPES">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sata" type="SMALLINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="max_cooler_weigth" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Engeeene (generated)" id="1515695373679-6">
+        <createTable tableName="motherboard_cpu_cooler">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="motherboard_cpu_cooler_pkey"/>
+            </column>
+            <column name="socket" type="SOCKETS">
+                <constraints nullable="false"/>
+            </column>
+            <column name="id_cpu_cooler" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Engeeene (generated)" id="1515695373679-7">
+        <createTable tableName="power_supply">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="power_supply_pkey"/>
+            </column>
+            <column name="manufacturer" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="model" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="numeric">
+                <constraints nullable="false"/>
+            </column>
+            <column name="power" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modular" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="additional_pin" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Engeeene (generated)" id="1515695373679-8">
+        <createTable tableName="ram">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="ram_pkey"/>
+            </column>
+            <column name="manufacturer" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="model" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="numeric">
+                <constraints nullable="false"/>
+            </column>
+            <column name="required_power" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="memory_type" type="MEMORY_TYPES">
+                <constraints nullable="false"/>
+            </column>
+            <column name="memory_amount" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="memory_frequency" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Engeeene (generated)" id="1515695373679-9">
+        <addUniqueConstraint columnNames="manufacturer, model" constraintName="cpu_cooler_manufacturer_model_key" tableName="cpu_cooler"/>
+    </changeSet>
+    <changeSet author="Engeeene (generated)" id="1515695373679-10">
+        <addUniqueConstraint columnNames="manufacturer, model" constraintName="cpu_manufacturer_model_key" tableName="cpu"/>
+    </changeSet>
+    <changeSet author="Engeeene (generated)" id="1515695373679-11">
+        <addUniqueConstraint columnNames="manufacturer, model" constraintName="gpu_manufacturer_model_key" tableName="gpu"/>
+    </changeSet>
+    <changeSet author="Engeeene (generated)" id="1515695373679-12">
+        <addUniqueConstraint columnNames="manufacturer, model" constraintName="hdd_manufacturer_model_key" tableName="hdd"/>
+    </changeSet>
+    <changeSet author="Engeeene (generated)" id="1515695373679-13">
+        <addUniqueConstraint columnNames="manufacturer, model" constraintName="motherboard_manufacturer_model_key" tableName="motherboard"/>
+    </changeSet>
+    <changeSet author="Engeeene (generated)" id="1515695373679-14">
+        <addUniqueConstraint columnNames="manufacturer, model" constraintName="power_supply_manufacturer_model_key" tableName="power_supply"/>
+    </changeSet>
+    <changeSet author="Engeeene (generated)" id="1515695373679-15">
+        <addUniqueConstraint columnNames="manufacturer, model" constraintName="ram_manufacturer_model_key" tableName="ram"/>
+    </changeSet>
+    <changeSet author="Engeeene (generated)" id="1515695373679-16">
+        <addForeignKeyConstraint baseColumnNames="id_cpu_cooler" baseTableName="motherboard_cpu_cooler" constraintName="motherboard_cpu_cooler_id_cpu_cooler_fkey" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="cpu_cooler"/>
+    </changeSet>
+</databaseChangeLog>
