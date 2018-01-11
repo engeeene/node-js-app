@@ -51,5 +51,5 @@ function closeDB() {
 	app_module.disconnect();
 }
 
-process.on('SIGINT', closeDB);
-process.on('SIGTERM', closeDB);
+//process.on('SIGINT', closeDB);
+//process.on('SIGTERM', closeDB);
