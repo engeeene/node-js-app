@@ -242,7 +242,7 @@ async function generate(amount) {
 
 app.post("/find", jsonParser, function(request, response){
 	if(!request.body) return response.sendStatus(400);
-    console.log(request.body);
+	//console.log(request.body);
 	client.query(`
 	SELECT mb_name, mb_model, cpu_name, cpu_model, cooler_name, cooler_model, gpu_name, gpu_model, ram_name, ram_model, hdd_name, hdd_model, ps_name, ps_model, price FROM
 		(SELECT mb_name, mb_model, cpu_name, cpu_model, cooler_name, cooler_model, gpu_name, gpu_model, ram_name, ram_model, hdd_name, hdd_model, ps_name, ps_model, (info.mb_price + info.cpu_price + info.cooler_price + info.gpu_price + info.ram_price + info.hdd_price + info.ps_price) AS price FROM 
