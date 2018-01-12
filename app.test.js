@@ -10,9 +10,8 @@ describe('app testing', function(){
 		app_module.connectToDB({
 			host: '127.0.0.1',
 			port: 5432,
-			user: 'Engeeene',
-			database: 'test',
-			password: '1234'
+			user: 'postgres',
+			database: 'test'
 		});
 	});
 		
