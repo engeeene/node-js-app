@@ -17,5 +17,5 @@ before_install:
 before_script:
   - psql -c 'create database components;' -U postgres
   - psql -c 'create database test;' -U postgres
-  - ~/liquibase/liquibase --driver=org.postgresql.Driver --url=jdbc:postgresql://127.0.0.1:5432/components --username=postgres --password= --changeLogFile=$TRAVIS_BUILD_DIR/db.changelog.xml update
-  - ~/liquibase/liquibase --driver=org.postgresql.Driver --url=jdbc:postgresql://127.0.0.1:5432/test --username=postgres --password= --changeLogFile=$TRAVIS_BUILD_DIR/db.changelog.xml update
+  - ~/liquibase/liquibase --driver=org.postgresql.Driver --url=jdbc:postgresql://127.0.0.1:5432/components --username=postgres --password= --changeLogFile=engeeene/node-js-app/db.changelog.xml update
+  - ~/liquibase/liquibase --driver=org.postgresql.Driver --url=jdbc:postgresql://127.0.0.1:5432/test --username=postgres --password= --changeLogFile=engeeene/node-js-app/db.changelog.xml update
