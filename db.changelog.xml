@@ -1,5 +1,13 @@
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+	<changeSet author="Engeeene" id="1">
+		<sql>
+		CREATE TYPE sockets AS ENUM ('LGA771', 'LGA775', 'LGA1567', 'LGA1366', 'LGA1156', 'LGA1155', 'LGA2011', 'LGA1356', 'LGA1150', 'LGA2011-3', 'LGA1151', 'LGA2066', 'AM2', 'AM2+', 'AM3', 'AM3+', 'AM4', 'AM4+', 'AM1', 'FM1', 'FM2', 'FM2+', 'TR4', 'F', 'F+', 'SP3');
+		CREATE TYPE memory_types AS ENUM ('DDR1', 'DDR2', 'DDR3', 'DDR4');
+		CREATE TYPE efficiency_type AS ENUM ('bad', 'normal', 'good', 'excellent');
+		CREATE TYPE chips AS ENUM ('Intel', 'AMD');
+		</sql>
+	</changeSet>
     <changeSet author="Engeeene (generated)" id="1515695373679-1">
         <createTable tableName="cpu">
             <column autoIncrement="true" name="id" type="SERIAL">

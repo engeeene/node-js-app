@@ -19,7 +19,7 @@ it('should return home page', function(done){
 
 
 it('should generate rows withoth errors',() => {
-	assert.ok(app_module.generateDB(1));
+	assert.doesNotThrow(app_module.generateDB(1));
 });
 
 it('should return row', function(done){
