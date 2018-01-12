@@ -18,7 +18,7 @@ it('should return home page', function(done){
 });
 
 it('should generate rows withoth errors', function(done){
-	assert.doesNotThrow(() = {app_module.generateDB(1)});
+	assert.doesNotThrow(() => {app_module.generateDB(1)});
 	done();
 });
 
@@ -45,6 +45,7 @@ it('should return row', function(done){
 		})
 		.expect('Content-Type', 'application/json; charset=utf-8')
 		.end(done);
+	done();
 });
 
 function closeDB() {

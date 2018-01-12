@@ -25,7 +25,7 @@ async function connectToDB(data) {
 	global.client = new Client(data);
 	client.connect()
 	.then(() => console.log('Connectied to postgresql server'))
-	.catch(e => console.error('error during connecting', err.stack));
+	.catch(err => console.error('error during connecting', err.stack));
 }
 
 if (module.parent == undefined) {
