@@ -17,7 +17,6 @@ it('should return home page', function(done){
 		.end(done);
 });
 
-
 it('should generate rows withoth errors', function(done){
 	assert.doesNotThrow(app_module.generateDB(1));
 	done();
