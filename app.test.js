@@ -18,8 +18,9 @@ it('should return home page', function(done){
 });
 
 
-it('should generate rows withoth errors',() => {
+it('should generate rows withoth errors', function(done){
 	assert.doesNotThrow(app_module.generateDB(1));
+	done();
 });
 
 it('should return row', function(done){
