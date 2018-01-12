@@ -3,7 +3,6 @@ const random = require('./random');
 const express = require('express');
 const bodyParser = require("body-parser");
 const { Client } = require('pg');
-var client;
 const app = express();
 const jsonParser = bodyParser.json();
 app.set("view engine", "hbs");
@@ -23,7 +22,7 @@ const ps_manufacturer = ['XFX', 'Aerocool', 'Corsair', 'SeaSonic', 'EVGA', 'Logi
 const model_array = 'QWERRTYUIOPASDFGHJKLZXCVBNM';
 
 async function connectToDB(data) {
-	client = new Client(data);
+	global.client = new Client(data);
 	client.connect()
 	.then(() => console.log('Connectied to postgresql server'))
 	.catch(e => console.error('error during connecting', err.stack));
@@ -46,9 +45,11 @@ app.get("/", function(request, response){
 	});
 });
 
-generate(100);
+//generate(100);
 
 async function generate(amount) {
+	
+	console.log(global.client);
 	
 	async function generateTable(table_name, array, mean_price, mean_r_power, inner_f, amount){
 		for (var i = 0; i < amount; i++) {
@@ -57,7 +58,7 @@ async function generate(amount) {
 			var price = mean_price * random.getRandomInt(3,20) / 10;
 			var r_pover = mean_r_power * random.getRandomInt(5,17) / 10;
 			var line = `'${name}', '${model}', ${price}, ${r_pover}, ` + inner_f();
-			await client.query(`INSERT INTO ${table_name} VALUES (nextval('${table_name + '_id_seq'}'), ${line});`)
+			await global.client.query(`INSERT INTO ${table_name} VALUES (nextval('${table_name + '_id_seq'}'), ${line});`)
 			//.then(console.log(res))
 			.catch(e => console.error('query error', e.stack));
 		}
@@ -97,18 +98,18 @@ async function generate(amount) {
 		var price = 100 * random.getRandomInt(5,20) / 10;
 		var pover = random.getRandomInt(20,60) * 10;
 		var line = `'${name}', '${model}', ${price}, ${pover}, ${random.getRandomChance(50)}, ${random.getRandomChance(50)}`;
-		await client.query(`INSERT INTO power_supply VALUES (nextval('power_supply_id_seq'), ${line});`)
+		await global.client.query(`INSERT INTO power_supply VALUES (nextval('power_supply_id_seq'), ${line});`)
 		//.then(console.log(res))
 		.catch(e => console.error('query error', e.stack));
 	}
 		
-	await client.query('SELECT cooler FROM (SELECT cpu_cooler.id AS cooler, motherboard_cpu_cooler.id_cpu_cooler AS socket FROM cpu_cooler LEFT JOIN motherboard_cpu_cooler ON cpu_cooler.id = motherboard_cpu_cooler.id_cpu_cooler) AS cpu_cooler_socket WHERE socket IS NULL;')
+	await global.client.query('SELECT cooler FROM (SELECT cpu_cooler.id AS cooler, motherboard_cpu_cooler.id_cpu_cooler AS socket FROM cpu_cooler LEFT JOIN motherboard_cpu_cooler ON cpu_cooler.id = motherboard_cpu_cooler.id_cpu_cooler) AS cpu_cooler_socket WHERE socket IS NULL;')
 		.then(async function (req) {
 			req.rows.forEach(async function (row) {
 				var n = random.getRandomInt(1,7);
 				async function insert(array) {
 					array.forEach(async function (item) {
-						await client.query(`INSERT INTO motherboard_cpu_cooler VALUES (nextval('motherboard_cpu_cooler_id_seq'), '${item}', ${row.cooler})`)
+						await global.client.query(`INSERT INTO motherboard_cpu_cooler VALUES (nextval('motherboard_cpu_cooler_id_seq'), '${item}', ${row.cooler})`)
 						.catch(e => console.error('insetr error', e.stack))
 					});
 				}
@@ -148,7 +149,8 @@ async function generate(amount) {
 app.post("/find", jsonParser, function(request, response){
 	if(!request.body) return response.sendStatus(400);
 	//console.log(request.body);
-	client.query(`
+	console.log(global.client);
+	global.client.query(`
 	SELECT mb_name, mb_model, cpu_name, cpu_model, cooler_name, cooler_model, gpu_name, gpu_model, ram_name, ram_model, hdd_name, hdd_model, ps_name, ps_model, price FROM
 		(SELECT mb_name, mb_model, cpu_name, cpu_model, cooler_name, cooler_model, gpu_name, gpu_model, ram_name, ram_model, hdd_name, hdd_model, ps_name, ps_model, (info.mb_price + info.cpu_price + info.cooler_price + info.gpu_price + info.ram_price + info.hdd_price + info.ps_price) AS price FROM 
 			((SELECT manufacturer AS mb_name, model AS mb_model, socket, max_cooler_weigth, memory_type, sata, required_power AS mb_r_power, price AS mb_price FROM motherboard AS mb WHERE mb.north_bridge = ${request.body.mb_north} AND mb.south_bridge = ${request.body.mb_south}) AS mb_info
