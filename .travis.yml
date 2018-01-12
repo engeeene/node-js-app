@@ -7,12 +7,15 @@ services:
   
 before_install:
   - cd ~
+  - ls
   - mkdir ~/liquibase
   - cd ~/liquibase
   - wget https://github.com/liquibase/liquibase/releases/download/liquibase-parent-3.4.2/liquibase-3.4.2-bin.tar.gz
   - tar -xzf liquibase-3.4.2-bin.tar.gz -C ./
   - cd ~/liquibase/lib
   - wget https://jdbc.postgresql.org/download/postgresql-9.4-1204.jdbc42.jar
+  - cd $TRAVIS_BUILD_DIR
+  - ls
   
 before_script:
   - psql -c 'create database components;' -U postgres
