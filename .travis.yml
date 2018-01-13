@@ -23,7 +23,7 @@ before_script:
 
 install:
   - npm install -g codecov
-  - npm install blanket
+  - npm install -g blanket
   
 script:
     NODE_ENV=test YOURPACKAGE_COVERAGE=1 ./node_modules/.bin/mocha require blanket reporter mocha-lcov-reporter
