@@ -28,10 +28,6 @@ install:
   - npm install -g supertest
   - npm install
   
-script:
-  - mocha --require blanket
-  - mocha --require blanket -R html-cov > coverage.html
-  
 afret_script:
   - istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && codecov
   - codecov
