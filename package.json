@@ -12,11 +12,11 @@
   "devDependencies": {
     "mocha": "^4.1.0",
     "supertest": "^3.0.0"
-  }
+  },
   "config": {
      "blanket": {
-     "pattern": [ "*.test.js" ],
-     "data-cover-never": [ "node_modules" ]
+       "pattern": [ "*.test.js" ],
+       "data-cover-never": [ "node_modules" ]
     }
   }
 }
