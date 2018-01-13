@@ -21,7 +21,7 @@ const hdd_manufacturer = ['Silicon Power', 'Transcend', 'Toshiba', 'Dell', 'WD',
 const ps_manufacturer = ['XFX', 'Aerocool', 'Corsair', 'SeaSonic', 'EVGA', 'LogicPower'];
 const model_array = 'QWERRTYUIOPASDFGHJKLZXCVBNM';
 
-async function connectToDB(data) {
+function connectToDB(data) {
 	global.client = new Client(data);
 	client.connect()
 	.then(() => console.log('Connectied to postgresql server'))
