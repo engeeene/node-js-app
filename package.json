@@ -2,7 +2,8 @@
   "name": "node-js-app",
   "version": "1.0.0",
   "scripts": {
-    "test": "mocha *.test.js"
+    "test": "mocha *.test.js",
+    "report-coverage": "codecov"
   },
   "dependencies": {
     "express": "^4.16.2",
