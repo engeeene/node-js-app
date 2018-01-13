@@ -16,7 +16,7 @@
   },
   "config": {
      "blanket": {
-       "pattern": [ "*.test.js" ],
+       "pattern": [ "" ],
        "data-cover-never": [ "node_modules" ]
     }
   }
