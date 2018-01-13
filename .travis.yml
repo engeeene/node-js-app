@@ -28,6 +28,8 @@ install:
   - npm install -g supertest
   - npm install
   
-script:
+afret_script:
+  - mocha --require blanket
+  - mocha --require blanket -R html-cov > coverage.html
   - NODE_ENV=test YOURPACKAGE_COVERAGE=1 ./node_modules/.bin/mocha --require blanket --reporter mocha-lcov-reporter
   - codecov
