@@ -27,5 +27,5 @@ install:
   - npm install -g istanbul
   
 script:
-  - istanbul cover node_modules/mocha/bin/_mocha --reporter lcovonly -- -R spec
+  - istanbul cover app.test.js --reporter lcovonly -- -R spec
   - codecov
