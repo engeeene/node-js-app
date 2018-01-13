@@ -23,7 +23,7 @@ before_script:
 
 install:
   - npm install -g codecov
-  - npm install -g blanket
+  - npm install blanket
   - npm install -g mocha
   - npm install -g supertest
   - npm install
