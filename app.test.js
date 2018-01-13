@@ -71,7 +71,7 @@ describe('app testing', function(){
 				ram_frequency:"1"
 			})
 			.expect('Content-Type', 'application/json; charset=utf-8')
-			.end(() => {done(); process.exit();});
+			.end(() => {done();app_module.disconnect(); process.exit();});
 	});
 });
 
