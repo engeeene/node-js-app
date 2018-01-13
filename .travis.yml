@@ -23,7 +23,7 @@ before_script:
 
 install:
   - npm install -g codecov
-  - npm install blanket
+  - npm install -g istanbul
   - npm install -g mocha
   - npm install -g supertest
   - npm install
@@ -33,5 +33,5 @@ script:
   - mocha --require blanket -R html-cov > coverage.html
   
 afret_script:
-  - NODE_ENV=test YOURPACKAGE_COVERAGE=1 ./node_modules/.bin/mocha --require blanket --reporter mocha-lcov-reporter
+  - istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && codecov
   - codecov
